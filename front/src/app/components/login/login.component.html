@@ -1,0 +1,14 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2>Entrar</h2>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Nome do Personagem</mat-label>
+        <input matInput placeholder="Nome do Personagem" formControlName="name">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" routerLink="/iniciative" (click)="login()">ENTRAR</button>
+  </mat-card>
+  <footer>© 2025 - Só os Viciados do Esporte - 48h</footer>
+</div>

@@ -1,0 +1,40 @@
+@if (activeClassName == null || activeClassLevel == null) {
+  <form [formGroup]="formClass">
+    <mat-form-field appearance="outline">
+      <mat-label>Select an option</mat-label>
+      <mat-select formControlName="clazz" multiple>
+        @for (class of classesName; track $index) {
+          <mat-option [value]="class">{{class}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Nível do Personagem</mat-label>
+      <input matInput placeholder="Nível do Personagem" formControlName="nivel">
+      <mat-icon matSuffix>person</mat-icon>
+     </mat-form-field>
+  </form>
+  <button matButton="elevated" (click)="insertClassProperties()">Send</button>
+}
+
+@if (activeClassName != null || activeClassLevel != null) {
+  <button matButton="elevated" (click)="longRest()">Descanso Longo</button>
+
+  @for (char of lstClassProperties; track $index) {
+    <table>
+      <h2>{{char.name}}</h2>
+      <h2>{{char.class}}</h2>
+      <h2>{{char.level}}</h2>
+      @for (item of spellSlotsLevels; track $index) {
+        @if (char.spellSlots[item] != 0) {
+          <tr>
+            <td><button matButton="elevated" (click)="calcQtdSpellSlot(item, false)">-</button></td>
+            <td>Nível {{item}}°</td>
+            <td>{{classProperties.spellSlots[item]}}</td>
+            <td><button matButton="elevated" (click)="calcQtdSpellSlot(item, true)">+</button></td>
+          </tr>
+        }
+      }
+    </table> 
+  }
+}
