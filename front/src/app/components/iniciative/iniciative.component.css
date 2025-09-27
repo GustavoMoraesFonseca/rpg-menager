@@ -4,3 +4,31 @@
   align-items: start;
   min-height: 90vh;
 }
+
+.table {
+  width: 100%;
+}
+
+.mat-column-hpCalc {
+  width: 32px;
+  padding-right: 24px;
+}
+
+.mat-column-name {
+  padding-left: 16px;
+  font-weight: bold;
+}
+
+.mat-column-iniciativeValue {
+  width: 32px;
+}
+
+.mat-column-hp {
+  width: 32px;
+  color: darkgreen;
+}
+
+.mat-column-button {
+  padding-left: 16px;
+  font-size: 20px;
+}
