@@ -46,6 +46,7 @@ export class SkillControllerComponent implements OnInit {
 
   activeClassName!: string | null;
   activeClassLevel!: string | null;
+  isDm: boolean = false;
   activeClass!: any;
 
   classProperties!: ClassProperties;
@@ -65,6 +66,7 @@ export class SkillControllerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.isDm = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_IS_DM) == 'true';
     this.activeClassName = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_CLASS);
     this.activeClassLevel = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_LEVEL);
 
@@ -73,14 +75,10 @@ export class SkillControllerComponent implements OnInit {
     this.setActiveClass();
     this.setClassProperties();
 
-    if (this.activeClassName != null) {
+    if (this.isDm || this.activeClassName != null) {
       this.socketService.onInit(
         (data) => {
-
-          console.log(data)
-
           const classProperties = this.getClassPropertiesByCharName(data);
-  
           if (data.length == 0 || classProperties == this.classPropertiesEmpty) {
             this.socketService.send(this.classProperties);
           } else {

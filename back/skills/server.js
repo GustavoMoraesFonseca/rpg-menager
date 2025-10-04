@@ -23,7 +23,10 @@ io.on('connection', (socket) => {
       msg.spellSlots[msg.spellSlotLevel] = +msg.qtdSS;
       skills[i] = msg;
     } else {
-      skills.push(msg);
+      if (msg.name != null && msg.name != undefined && msg.name != '') {
+        console.log('Mensagem adicionada')
+        skills.push(msg);
+      }
     }
 
     io.emit('update', skills);

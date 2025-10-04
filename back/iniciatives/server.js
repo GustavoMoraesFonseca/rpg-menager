@@ -8,7 +8,7 @@ const io = new Server(server, {
   cors: { origin: '*' }
 });
 
-let initiatives = []; // lista global no servidor
+let initiatives = [];
 
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
@@ -21,7 +21,11 @@ io.on('connection', (socket) => {
     if (msg.hpCalc) {
       const i = initiatives.findIndex((iniciative) => iniciative.name == msg.name);      
       msg.hp = +msg.hp + +msg.hpCalc;
-      initiatives[i] = msg;
+      if (msg.hp <= 0) {
+        initiatives.splice(i, 1);
+      } else {
+        initiatives[i] = msg;
+      }
     } else {
       initiatives.push(msg);
     }
