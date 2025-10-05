@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  ngrok:
+    image: ngrok/ngrok:latest
+    command:
+      - "http"
+      - "http://host.docker.internal:80"
+    environment:
+      NGROK_AUTHTOKEN: 29OlP7BVv0rNWoJFRGDaofQexbW_6T6i6dRbgqUVQd9NcG5bR
+    ports:
+      - 4040:4040
+    depends_on:
+      - "rpg-manager-web"
+    
+  rpg-manager-web:
+    container_name: rpg-manager-web
+    image: gustavomoraesfonseca/rpg-manager:web
+    restart: always
+    build: ./front
+    environment:
+      TZ: America/Sao_Paulo
+    ports:
+      - "80:80"
+    depends_on:
+      - "rpg-manager-skills"
+      - "rpg-manager-iniciatives"
+
+  rpg-manager-skills:
+    container_name: rpg-manager-skills
+    image: gustavomoraesfonseca/rpg-manager:skills
+    restart: always
+    build: ./back/skills
+    environment: 
+      TZ: America/Sao_Paulo
+    ports:
+      - "3001:3001"
+    networks:
+      - rpg-manager-network
+
+  rpg-manager-iniciatives:
+    container_name: rpg-manager-iniciatives
+    image: gustavomoraesfonseca/rpg-manager:iniciatives
+    restart: always
+    build: ./back/iniciatives
+    environment: 
+      TZ: America/Sao_Paulo
+    ports:
+      - "3000:3000"
+    networks:
+      - rpg-manager-network
+
+networks:
+  rpg-manager-network:
+    driver: bridge
