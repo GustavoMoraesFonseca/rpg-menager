@@ -66,9 +66,9 @@ export class SkillControllerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isDm = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_IS_DM) == 'true';
-    this.activeClassName = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_CLASS);
-    this.activeClassLevel = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_LEVEL);
+    this.isDm = sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_IS_DM) == 'true';
+    this.activeClassName = sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_CLASS);
+    this.activeClassLevel = sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_LEVEL);
 
     this.classes = this.skillService.getClasses();
     this.classesName = this.classes.classes.map((obj: any) => obj.classe);
@@ -119,7 +119,7 @@ export class SkillControllerComponent implements OnInit {
     console.log(this.lstClassProperties)
 
     const classProperties: ClassProperties[] = data.filter(
-      (properties: any) => localStorage.getItem(Constants.LOCAL_STORAGE_KEY_NAME) == properties.name
+      (properties: any) => sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_NAME) == properties.name
     );
 
     return classProperties.length == 0? this.classPropertiesEmpty : classProperties[0];
@@ -162,7 +162,7 @@ export class SkillControllerComponent implements OnInit {
 
   setClassProperties() {
     this.classProperties = {  
-      name: localStorage.getItem(Constants.LOCAL_STORAGE_KEY_NAME),
+      name: sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_NAME),
       class: this.activeClassName,
       level: this.activeClassLevel,
       spellSlots: this.activeClass,
@@ -189,8 +189,8 @@ export class SkillControllerComponent implements OnInit {
       const commaQtdinClass = classProperties.clazz.length - 1;
       const commaQtdinLevel = classProperties.nivel.split(',').length - 1;
       if (this.formClass.valid && commaQtdinClass == commaQtdinLevel) {
-        localStorage.setItem(Constants.LOCAL_STORAGE_KEY_CLASS, classProperties.clazz);
-        localStorage.setItem(Constants.LOCAL_STORAGE_KEY_LEVEL, classProperties.nivel);
+        sessionStorage.setItem(Constants.LOCAL_STORAGE_KEY_CLASS, classProperties.clazz);
+        sessionStorage.setItem(Constants.LOCAL_STORAGE_KEY_LEVEL, classProperties.nivel);
         window.location.reload();
       } else {
         this._snackBar.open('Colocou Merda', 'Burro!', {duration: 1500});

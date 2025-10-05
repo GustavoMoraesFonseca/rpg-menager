@@ -41,9 +41,9 @@ export class LoginComponent {
     let isDm: boolean = true;
 
     if (login.name.length != 0) {
-      localStorage.setItem(Constants.LOCAL_STORAGE_KEY_NAME, login.name);
+      sessionStorage.setItem(Constants.LOCAL_STORAGE_KEY_NAME, login.name);
       isDm = false;
     }
-    localStorage.setItem(Constants.LOCAL_STORAGE_KEY_IS_DM, isDm+'');
+    sessionStorage.setItem(Constants.LOCAL_STORAGE_KEY_IS_DM, isDm+'');
   }
 }

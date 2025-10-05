@@ -53,8 +53,8 @@ export class IniciativeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isDm = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_IS_DM) == 'true';
-    this.charName = localStorage.getItem(Constants.LOCAL_STORAGE_KEY_NAME);
+    this.isDm = sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_IS_DM) == 'true';
+    this.charName = sessionStorage.getItem(Constants.LOCAL_STORAGE_KEY_NAME);
 
     this.socketService.onInit(
       (data) => this.setIniciatives(data)
